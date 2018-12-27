@@ -11,6 +11,7 @@ public class FileInfo {
     private FileType type;
     private List<String> directDependencyFile;
     private Set<String> allDependencyFile;
+    private List<String> dependencyLink;
 
     public String getFileName() {
         return fileName;
@@ -42,5 +43,13 @@ public class FileInfo {
 
     public void setAllDependencyFile(Set<String> allDependencyFile) {
         this.allDependencyFile = allDependencyFile;
+    }
+
+    public List<String> getDependencyLink() {
+        return dependencyLink;
+    }
+
+    public void setDependencyLink(List<String> dependencyLink) {
+        this.dependencyLink = dependencyLink;
     }
 }
