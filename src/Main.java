@@ -11,7 +11,8 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
-        testExcel2003NoModel();
+        initData();
+        showDbDependencyLink();
     }
 
     public static void  testExcel2003NoModel() {
@@ -52,6 +53,45 @@ public class Main {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public static void initData() {
+        FileInfo a = new FileInfo("a.cpp");
+        a.directDependencyFile.add("b.h");
+        a.directDependencyFile.add("c.h");
+        a.directDependencyFile.add("d.h");
+        FileDataBase.insert(a);
+
+        FileInfo b = new FileInfo("b.h");
+        b.directDependencyFile.add("e.h");
+        b.directDependencyFile.add("f.h");
+        FileDataBase.insert(b);
+
+        FileInfo c = new FileInfo("c.h");
+        c.directDependencyFile.add("e.h");
+        c.directDependencyFile.add("g.h");
+        FileDataBase.insert(c);
+
+        FileInfo d = new FileInfo("d.h");
+        d.directDependencyFile.add("f.h");
+        d.directDependencyFile.add("g.h");
+        d.directDependencyFile.add("i.h");
+        FileDataBase.insert(d);
+
+        FileInfo e = new FileInfo("e.h");
+        FileDataBase.insert(e);
+
+        FileInfo f = new FileInfo("f.h");
+        f.directDependencyFile.add("g.h");
+        f.directDependencyFile.add("i.h");
+        FileDataBase.insert(f);
+
+    }
+
+    public static void showDbDependencyLink(){
+        for(FileInfo fileInfo : FileDataBase.cppDB.values()){
+            fileInfo.printDependencyLink();
         }
     }
 }
