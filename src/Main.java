@@ -1,6 +1,9 @@
 import com.alibaba.excel.ExcelReader;
 import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.excel.support.ExcelTypeEnum;
+import execl.ModelListener;
+import execl.RowInfo;
+import execl.SimplelListener;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,7 +15,10 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello World!");
         initData();
-        showDbDependencyLink();
+        FileDataBase.generateDependencyLink();
+        showDbFileDependencyLink();
+        showDbFileAllDependencyFile();
+        showDbFileRepeatHeaderFiles();
     }
 
     public static void  testExcel2003NoModel() {
@@ -87,11 +93,38 @@ public class Main {
         f.directDependencyFile.add("i.h");
         FileDataBase.insert(f);
 
+        FileInfo g = new FileInfo("g.h");
+        g.directDependencyFile.add("j.h");
+        g.directDependencyFile.add("k.h");
+        FileDataBase.insert(g);
+
+        FileInfo i = new FileInfo("i.h");
+        FileDataBase.insert(i);
+
+        FileInfo j = new FileInfo("j.h");
+        FileDataBase.insert(j);
+
+        FileInfo k = new FileInfo("k.h");
+        FileDataBase.insert(k);
     }
 
-    public static void showDbDependencyLink(){
+    public static void showDbFileDependencyLink(){
         for(FileInfo fileInfo : FileDataBase.cppDB.values()){
             fileInfo.printDependencyLink();
+        }
+    }
+
+    public static void showDbFileAllDependencyFile(){
+        FileDataBase.generateDependencyLink();
+        for(FileInfo fileInfo : FileDataBase.cppDB.values()){
+            fileInfo.printAllDependencyFile();
+        }
+    }
+
+    public static void showDbFileRepeatHeaderFiles(){
+        FileDataBase.generateDependencyLink();
+        for(FileInfo fileInfo : FileDataBase.cppDB.values()){
+            fileInfo.printRepeatHeaderFiles();
         }
     }
 }

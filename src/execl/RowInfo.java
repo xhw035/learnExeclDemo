@@ -1,3 +1,5 @@
+package execl;
+
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.metadata.BaseRowModel;
 
@@ -38,7 +40,7 @@ public class RowInfo extends BaseRowModel {
 
     @Override
     public String toString() {
-        return "RowInfo{" +
+        return "execl.RowInfo{" +
                 "fileName='" + fileName + '\'' +
                 ", errorType='" + errorType + '\'' +
                 ", info='" + info + '\'' +
